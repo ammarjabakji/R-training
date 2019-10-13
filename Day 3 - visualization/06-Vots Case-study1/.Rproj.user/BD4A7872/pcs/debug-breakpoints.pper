@@ -1,0 +1,21 @@
+{
+    "debugBreakpointsState" : {
+        "breakpoints" : [
+            {
+                "editor_line_number" : 15,
+                "editor_state" : 1,
+                "function_name" : "toplevel",
+                "function_steps" : "",
+                "id" : 0,
+                "is_package_breakpoint" : false,
+                "is_pending_debug_completion" : false,
+                "line_number" : 15,
+                "needs_updated_steps" : false,
+                "package_name" : "",
+                "path" : "~/Desktop/Source File R/Day 2/05-dataprocessing/data-processing.R",
+                "state" : 1,
+                "type" : 1
+            }
+        ]
+    }
+}
