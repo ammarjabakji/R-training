@@ -18,15 +18,18 @@ data_readr$`Sender latitude`
 
 colnames(data_baseR)
 colnames(data_readr)
+names(data_readr)
 
 class(data_baseR)
 class(data_readr)
 
+# change names to lowercase 
+colnames(data_readr) <- 
+colnames(data_readr)  %>% 
+  tolower
 
-colnames(data_readr) <-
-  tolower(make.names(colnames(data_readr)))
 
-colnames(data_readr)
+names(data_readr)
 
 write_csv(data_readr, "transport-data.csv")
 

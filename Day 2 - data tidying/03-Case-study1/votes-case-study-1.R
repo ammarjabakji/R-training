@@ -1,12 +1,8 @@
 library(tidyverse)
-library(tidyr)
-library(purrr)
-library(broom)
-library(stringr)
+
 #https://rpubs.com/williamsurles/299664
 
 votes <- read_csv("votes.csv")
-descriptions <- read_csv("descriptions.csv")
 
 
 votes
@@ -60,10 +56,24 @@ votes_processed <- votes %>%
                      'United States of America' =  'United States',
                      'United Kingdom of Great Britain and Northern Ireland' = 'United Kingdom')
   )
+# votes_processed[260,] 
 
 #### Grouping and summarizing
 votes_processed %>%
   filter(country == "Syria")
+
+
+
+yes <- votes_processed %>%
+  filter(vote == 1)%>%
+  count()
+
+all <- votes_processed %>%
+  count()
+
+yes/all
+
+
 
 votes_processed %>%
   summarise(
@@ -71,7 +81,11 @@ votes_processed %>%
     percent_yes = mean(vote == 1)
   )
 
-
+votes_processed %>%
+  summarise(
+    total = n(),
+    percent_yes = mean(vote == 1)
+  )
 
 votes_processed %>%
   group_by(year) %>%
@@ -154,4 +168,8 @@ filtered_4_countries <- by_year_country %>%
 # Line plot of % yes in four countries
 ggplot(filtered_4_countries, aes(x = year, y = percent_yes, color = country)) +
   geom_line()
+
+ggplot(filtered_4_countries, aes(x = year, y = percent_yes, color = country)) +
+geom_point() +
+  geom_smooth()
 

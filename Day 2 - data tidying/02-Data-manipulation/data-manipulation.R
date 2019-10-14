@@ -39,7 +39,7 @@ LungData %>%
 LungData %>% 
   select(1:3)
 
-LungData[,1:3]
+LungData[1:3]
 
 LungData %>% 
   select(1:3) %>% 
@@ -122,11 +122,23 @@ LungData %>%
 
 LungData %>% 
   group_by(Gender) %>% 
-  summarise(total = n())
+  summarise(total =n())
+
+LungData %>% 
+  group_by(Gender) %>% 
+  summarise(Sum =sum(Age))
 
 LungData %>% 
   group_by(Gender) %>% 
   count()
+
+LungData %>% 
+  group_by(Gender,Smoke) %>% 
+  count()
+
+LungData %>% 
+  group_by(Gender) %>% 
+  summarise(Avreage = mean(Age))
 
 LungData %>% 
   group_by(Gender) %>% 
@@ -148,11 +160,22 @@ LungData %>%
 
   
 # is there relation between Smokers and Caesarean
+
+LungData %>% 
+  group_by(Caesarean,Smoke) %>% 
+  count()
+
+
+table(Smoker = LungData$Smoke,Caesarean =LungData$Caesarean)
+
+class(table(Smoker = LungData$Smoke,Caesarean =LungData$Caesarean))
+
 LungData %>% 
   group_by(Caesarean,Smoke) %>% 
   summarise(total = n(),"Avreage Age" = mean(Age))
-  table(Smoker = LungData$Smoke,infected =LungData$Caesarean)
+
   chisq.test(table(Smoker = LungData$Smoke,infected =LungData$Caesarean))
+  
   
   # chisq Case study
   # https://rpubs.com/anasteisha/da_2

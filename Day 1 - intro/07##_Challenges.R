@@ -1,6 +1,6 @@
 
 # 1 Call help for dataset mtcars
-# 2 check weather or not mtcars is data frame
+# 2 check whether or not mtcars is data frame
 # 3 Display the structure of the data set
 # 4 Load the dataset into memory
 # 5 Assign the first 10 elements of the built-in data frame 'mtcars' in a variable my_df
