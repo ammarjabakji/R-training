@@ -1,4 +1,4 @@
-sender.location,sender.latitude,sender.longitude,receiver.location,receiver.latitude,receiver.longitude,date,number.of.items
+sender location,sender latitude,sender longitude,receiver location,receiver latitude,receiver longitude,date,number of items
 "DEU, Mockethal",50.97178,13.960129,"USA, New York (NY)",40.712784,-74.005941000000007,07/09/1915,329
 "DEU, Mockethal",50.97178,13.960129,"USA, New York (NY)",40.712784,-74.005941000000007,19/09/1915,439
 "DEU, Mockethal",50.97178,13.960129,"USA, New York (NY)",40.712784,-74.005941000000007,21/09/1915,451

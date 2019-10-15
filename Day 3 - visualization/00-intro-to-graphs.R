@@ -22,30 +22,22 @@ ggplot(data=Refuges) +
 
 
 #### Simple ggplot example
-df <- data.frame(countres=c("Turkey", "Jordan", "Lebaon","Iraq"),
-                 refuges=c(3.0, 1, 1.5, 0.25))
-df
+df <- enframe(Refuges,'country','refuges')
 
-
-Refuges <- Refuges %>% as.list %>% as_tibble
-
-Refuges <- gather(Refuges,countries,ref)
 
 # Basic barplot
 ggplot()
 
 
-ggplot(data=df, aes(x=countres, y=refuges)) +
+ggplot(data=df, aes(x=country, y=refuges)) +
   geom_col()
 
 
+ggplot(data=df, aes(x=country, y=refuges)) +
+  geom_col() +
+  coord_polar("y")
 
 # Horizontal bar plot
 ggplot(data=df, aes(x=countres, y=refuges)) +
   # geom_bar(stat="identity")
-  geom_col() +
-  coord_flip()
-
-
-
-
+  geom_col() 

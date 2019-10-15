@@ -1,29 +1,16 @@
 library(tidyverse)
 library(gapminder)
 
-# * Connect operations with `%>%` 
-# * Extract cases with `filter()`  
-# * Make new variables, with `mutate()`  
-# * Make tables of summaries with `summarise()`  
-# * Do groupwise operations with `group_by()`
- 
 
-# https://cran.r-project.org/web/packages/gapminder/README.html
-#https://github.com/cwickham/data-science-in-tidyverse/blob/master/02-Transform.Rmd
-
-?gapminder
-data(gapminder)
-
-
-summary(gapminder)
-
+# 1) Filter data by countries in the list : "Syria", "Saudi Arabia", "Egypt","Turkey" 
+# assign it into a new variable countries
 
 countries <- c("Syria", "Saudi Arabia", "Egypt","Turkey")
 
 by_countires <- gapminder %>% 
   filter(country %in% countries)
 
-# Line plot of % yes in four countries
+# 2) Create smooth trend Line plot of the four countries where x is year and y is lifeExp
 ggplot(by_countires, aes(x = year, y = lifeExp, color = country)) +
   geom_smooth()
   

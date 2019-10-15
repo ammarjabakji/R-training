@@ -28,6 +28,10 @@ colnames(data_readr) <-
 colnames(data_readr)  %>% 
   tolower
 
+names(data_readr) <- 
+  names(data_readr)  %>% 
+  tolower()
+
 
 names(data_readr)
 

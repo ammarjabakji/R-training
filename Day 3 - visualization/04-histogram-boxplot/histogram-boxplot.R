@@ -35,4 +35,7 @@ ggplot(data=LungData) +
   geom_jitter(mapping=aes(x=Gender, y=LungCap))
 
 ggplot(data=LungData) +
+  geom_point(mapping=aes(x=Gender, y=LungCap))
+
+ggplot(data=LungData) +
   geom_boxplot(mapping=aes(x=Gender, y=LungCap))

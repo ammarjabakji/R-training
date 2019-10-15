@@ -9,7 +9,6 @@ library(tidyverse)
 
 browseVignettes(package = "ggplot2") 
 
-LungData <-  read.delim('LungCapData.txt')
 
 LungData <- read_tsv('LungCapData.txt')
 
@@ -73,5 +72,8 @@ ggplot(data=LungData) +
 ggplot(data=LungData) +
   geom_point(mapping=aes(x=Height, y=LungCap, color=Gender , size =Age , alpha=0.5 , shape= Gender))
 
+
+ggplot(data=LungData) +
+  geom_point(mapping=aes(x=Height, y=LungCap, color=Gender , size =Age , alpha=0.5 , shape= Gender))
 
 

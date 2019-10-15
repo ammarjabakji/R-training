@@ -4,7 +4,6 @@ library(tidyverse)
 
 votes <- read_csv("votes.csv")
 
-
 votes
 
 # 1 = Yes
@@ -17,14 +16,15 @@ votes
 unique(votes$vote)
 
 votes %>% 
-  distinct(vote)
+  distinct(vote).[[1]
 
 
 glimpse(votes)
 
 # Filter for votes that are "yes", "abstain", or "no"
 votes %>%
-  filter(vote <= 3)
+  filter(vote <= 3) %>% 
+  distinct(vote)
 
 # – Adding a year column
 # first session was in 1946. That is session 1.
@@ -37,14 +37,14 @@ voteswithyears <- votes %>%
   mutate(year = session + 1945)  
    
 
-voteswithyears %>% 
+votes2005 = voteswithyears %>% 
   filter(year == 2005)
 
 #load Countrycode pachage
 library(countrycode)
 
 # Convert country code 100
-countrycode(2, "cown", "country.name")
+countrycode(20, "cown", "country.name")
 
 # Add a country column within the mutate: votes_processed
 votes_processed <- votes %>%
@@ -78,19 +78,18 @@ yes/all
 votes_processed %>%
   summarise(
     total = n(),
-    percent_yes = mean(vote == 1)
+    percent_yes = sum(vote == 1)/n()
   )
 
 votes_processed %>%
   summarise(
-    total = n(),
-    percent_yes = mean(vote == 1)
+    percent_yes = m(vote == 1)
   )
 
 votes_processed %>%
   group_by(year) %>%
   summarize(total = n(),
-            percent_yes = mean(vote == 1))
+            percent_yes = sum(vote == 1)/total)
 
 # You have the votes summarized by country
 by_country <- votes_processed %>%
@@ -105,6 +104,8 @@ by_country
 by_country %>%
   arrange(percent_yes)
 
+by_country %>%
+  arrange(desc(percent_yes))
 # Now sort in descending order
 by_country %>%
   arrange(desc(percent_yes))
@@ -173,3 +174,4 @@ ggplot(filtered_4_countries, aes(x = year, y = percent_yes, color = country)) +
 geom_point() +
   geom_smooth()
 
+ggplot()

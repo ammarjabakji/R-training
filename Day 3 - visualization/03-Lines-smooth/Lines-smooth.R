@@ -25,6 +25,18 @@ LungData <-  read.delim('LungCapData.txt')
 ggplot(data=LungData) +
   geom_point(mapping=aes(x=LungCap, y=Height, color=Gender  ))
 
+#Working with legends
+
+ggplot(data=LungData) +
+  geom_point(mapping=aes(x=LungCap, y=Height, color=Gender  ))+
+  scale_color_manual(values=c("blue","orange"),
+                     guide=guide_legend(title="Gender of Students",
+                     nrow=1,
+                     label.position="bottom",
+                     keywidth = 3))+
+  theme(legend.position = "top")
+
+
 
 ggplot(data=LungData) +
   geom_line(mapping=aes(x=LungCap, y=Height, color=Gender  ))
@@ -51,4 +63,5 @@ ggplot(data=LungData, aes(x=LungCap, y=Age, color=Gender)) +
 
 ggplot(data=LungData, aes(x=LungCap, y=Age, color=Gender)) +
   geom_point(alpha=0.2) +
-  geom_smooth(se=FALSE)
+  geom_smooth(se=FALSE) +
+  theme_bw()

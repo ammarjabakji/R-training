@@ -29,9 +29,9 @@ ggplot(ChickWeight,
 # 4 - Take plot 3, add geom_smooth()
 ggplot(ChickWeight, 
        aes(x = Time, y = weight, col = Diet)) + 
-  geom_line(
-    aes(group = Chick), alpha = 0.3) + 
-  geom_smooth(lwd = 2, se = F)
+    geom_line(
+      aes(group = Chick), alpha = 0.3) + 
+      geom_smooth(lwd = 2, se = F)
 
 
 # Check the structure as a starting point

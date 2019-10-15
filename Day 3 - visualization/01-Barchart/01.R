@@ -1,4 +1,5 @@
 
+library(tidyverse)
 # Creating bar charts for categorical variables
 
 # Use dataset "social_network.csv" which records the
@@ -8,7 +9,7 @@
 # per week.
 
 # Create data frame "sn" from CSV file w/headers
-sn <- read.csv("social_network.csv", header = T)
+sn <- read_csv("social_network.csv")
 
 # R doesn't create bar charts directly from the categorical
 # variables; instead, we must first create a table that
@@ -27,7 +28,6 @@ barplot(site.freq)  # Creates barplot in new window
 ? barplot  # For more information on customizing graph
 
 
-library(tidyverse)
 
 ggplot(data = sn, mapping = aes(x=Site)) + geom_bar()
 
@@ -40,15 +40,16 @@ sn %>%
         ggplot() + geom_bar(aes(Site)) 
 
 # reorder
+
+
 ggplot(sn) + 
-        geom_bar(aes(fct_infreq(Site)))
+        geom_bar(aes(Site %>% fct_infreq ))
 
 # reverse
-ggplot(sn) + 
-        geom_bar(aes(fct_rev(Site)))
 
 ggplot(sn) + 
-        geom_bar(aes(fct_rev(fct_infreq(Site))))
+        geom_bar(aes(fct_infreq(Site) %>% fct_rev ))
+
 
 ggplot(sn) + 
         geom_bar(aes(fct_infreq(Site))) + 
