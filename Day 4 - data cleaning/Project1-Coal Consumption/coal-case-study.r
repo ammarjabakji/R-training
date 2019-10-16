@@ -13,7 +13,7 @@ coal <- read_csv("http://594442.youcanlearnit.net/coal.csv", skip=2)
 glimpse (coal)
 
 # Rename the first column as region
-colnames(coal)[1] <- "region"
+names(coal)[1] <- "region"
 summary(coal)
 
 # Convert from a wide dataset to a long dataset using gather
@@ -21,6 +21,8 @@ coal_long <- gather(coal, 'year', 'coal_consumption', -region)
 glimpse(coal_long)
 
 # Convert years to integers
+typeof(coal_long$year)
+
 coal_long$year <- as.integer(coal_long$year)
 summary(coal_long)
 
@@ -37,28 +39,22 @@ noncountries <- c("North America", "Central & South America", "Antarctica", "Eur
 
 
 
-
-# Look for matches
-matches <- which(!is.na(match(coal_long$region, noncountries)))
-
-
-
-# create a tibble of country values
-coal_country <- coal_long[-matches,]
+#  create a tibble of regions values
+coal_region <- coal_long %>% 
+  filter(region %in% noncountries )
 
 
-coal_country2 <- coal_long %>% 
+
+#  create a tibble of countries values
+coal_country <- coal_long %>% 
   filter(!region %in%  noncountries )
 
 
-# create a tibble of regional values
-coal_region <- coal_long[matches,]
-
-coal_region2 <- coal_long %>% 
-  filter(region  %in%  noncountries )
-
 # check them out
 unique(coal_region$region)
+#or
+coal_region %>% distinct(region)
+
 unique(coal_country$region)
 
 

@@ -12,6 +12,7 @@ highchart() %>%
                         mtcars$drat, mtcars$hp)
 
 
+
 highchart() %>% 
   hc_title(text = "Bar plot") %>% 
   hc_add_series_boxplot(mtcars$wt, mtcars$mpg,
@@ -48,26 +49,4 @@ hcmap("countries/gb/gb-all", showInLegend = FALSE) %>%
 
 
 
-## example map 2
-install.packages("geojsonio")
-library(geojsonio)
-
-ausgeojson <- getContent("https://raw.githubusercontent.com/johan/world.geo.json/master/countries/AUS.geo.json")
-ausgeojson <- jsonlite::fromJSON(ausgeojson, simplifyVector = FALSE)
-ausgeojson <- geojsonio::as.json(ausgeojson)
-class(ausgeojson)
-## [1] "json"     "geo_json"
-
-# http://openflights.org/data.html
-airports <- read.csv("https://commondatastorage.googleapis.com/ckannet-storage/2012-07-09T214020/global_airports.csv")
-airports <- filter(airports, country == "Australia", name != "Roma Street Railway Station")
-
-airp_geojson <- geojson_json(airports, lat = "latitude", lon = "longitude")
-class(airp_geojson)
-## [1] "json"     "geo_json"
-
-highchart(type = "map") %>%
-  hc_add_series(mapData = ausgeojson, showInLegend = FALSE) %>%
-  hc_add_series(data = airp_geojson, type = "mappoint",
-                dataLabels = list(enabled = FALSE),
-                name = "Airports", tooltip = list(pointFormat = "{point.name}")) 
+ 

@@ -30,8 +30,8 @@ ggplot(ChickWeight,
 ggplot(ChickWeight, 
        aes(x = Time, y = weight, col = Diet)) + 
     geom_line(
-      aes(group = Chick), alpha = 0.3) + 
-      geom_smooth(lwd = 2, se = F)
+      aes(group = Chick)) + 
+      geom_smooth(lwd = 2)
 
 
 # Check the structure as a starting point

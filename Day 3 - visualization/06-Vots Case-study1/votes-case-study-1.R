@@ -115,7 +115,7 @@ filtered_6_countries <- by_year_country %>%
 # Line plot of % yes over time faceted by country
 ggplot(filtered_6_countries, aes(year, percent_yes)) +
   geom_line() +
-  facet_wrap(~ country, scales = "free_y")
+  facet_wrap(~ country)
 
 #Tidy modeling with broom ========
 #Linear regression on the United States

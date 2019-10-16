@@ -20,15 +20,17 @@ LungData <-  read.delim('LungCapData.txt')
 # Gender If are male or female
 # Caesarean If they’re born by caesarean
 
+LungData %>% 
+  ggplot( aes(LungCap)) +
+    geom_bar()
 
-ggplot(LungData, aes(LungCap)) +
-  geom_bar()
-
-ggplot(LungData, aes(LungCap)) +
+LungData %>% 
+ggplot(aes(LungCap)) +
   geom_histogram()
 
 ggplot(LungData) +
   geom_histogram(aes(LungCap), bins = 100)
+
 
 
 ggplot(data=LungData) +
@@ -38,4 +40,6 @@ ggplot(data=LungData) +
   geom_point(mapping=aes(x=Gender, y=LungCap))
 
 ggplot(data=LungData) +
-  geom_boxplot(mapping=aes(x=Gender, y=LungCap))
+  geom_boxplot(mapping=aes(x=Gender, y=LungCap))+
+  geom_jitter(mapping=aes(x=Gender, y=LungCap), alpha=0.2)
+ 

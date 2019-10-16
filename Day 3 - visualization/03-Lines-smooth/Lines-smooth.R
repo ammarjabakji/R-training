@@ -33,7 +33,7 @@ ggplot(data=LungData) +
                      guide=guide_legend(title="Gender of Students",
                      nrow=1,
                      label.position="bottom",
-                     keywidth = 3))+
+                     keywidth = 6))+
   theme(legend.position = "top")
 
 

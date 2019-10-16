@@ -62,7 +62,7 @@ ggplot(sn) +
 ggplot(sn) + 
 geom_bar( aes( fct_infreq(Site) ) , fill='steelblue' ) + 
         coord_flip() +
-         ggtitle("Social Media \n Follwers") +
+         ggtitle("Social Media \n Followers") +
          xlab("Social Media)") + ylab("Number of users")
 
 ggplot(sn) + 
