@@ -1,8 +1,6 @@
 # Data Visualization with ggplot
 # Scatterplots
-# Video 2.1
 
-# Load the dataset as described in Video 1.3
 
 library(tidyverse)
 
