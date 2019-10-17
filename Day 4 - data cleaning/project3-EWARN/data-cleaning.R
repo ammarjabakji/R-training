@@ -1,5 +1,6 @@
 library(tidyverse)
 library("readxl")
+library(stringr)
 
 
 EWARN <- read_xlsx("EWARN.xlsx")
@@ -10,20 +11,20 @@ summary(EWARN)
 names(EWARN)
 
 EWARN2019ABD <- EWARN %>% 
-  select(Year, Month, Governorate, District, Subdistrict, Community,"Sum of 0 - 4 years ذكر-ABD","Sum of 0 - 4 years أنثى-ABD", "Sum of ≥ 5 years ذكر-ABD", "Sum of ≥ 5 years أنثى-ABD") %>% 
+  select(Year, Month,Week, Governorate, District, Subdistrict, Community,"Sum of 0 - 4 years ذكر-ABD","Sum of 0 - 4 years أنثى-ABD", "Sum of ≥ 5 years ذكر-ABD", "Sum of ≥ 5 years أنثى-ABD") %>% 
   filter(Year == "2019")
 
 EWARN2019ABD <- EWARN %>% 
-  select(Year, Month, Governorate, District, Subdistrict, Community,contains("ABD")) %>% 
+  select(Year:Community,contains("ABD")) %>% 
   filter(Year == "2019")
 
 
-ewarn.tidy <- gather(EWARN2019ABD, ABD, SUM,"Sum of 0 - 4 years ذكر-ABD","Sum of 0 - 4 years أنثى-ABD", "Sum of ≥ 5 years ذكر-ABD", "Sum of ≥ 5 years أنثى-ABD", -Year, -Month, -Governorate, -District, -Subdistrict, -Community)
+ewarn.tidy <- gather(EWARN2019ABD, ABD, SUM,"Sum of 0 - 4 years ذكر-ABD","Sum of 0 - 4 years أنثى-ABD", "Sum of ≥ 5 years ذكر-ABD", "Sum of ≥ 5 years أنثى-ABD", -Year, -Month,-Week, -Governorate, -District, -Subdistrict, -Community)
 
-ewarn.tidy <- gather(EWARN2019ABD, ABD, SUM,contains("ABD"), -Year:-Community)
+ewarn.tidy <- gather(EWARN2019ABD, ABD, SUM,contains("ABD"), -(Year:Community))
 
 
-ewarn.tidy <- distinct(ewarn.tidy, .keep_all= TRUE)
+ewarn.tidy <- distinct(ewarn.tidy)
 
 summary(ewarn.tidy)
 
@@ -62,25 +63,27 @@ ewarn.tidy  %>%
 
 
 ewarn.tidy  %>% 
-  filter(Month == "Mar" & !is.na(SUM))  %>% 
+  filter(  !is.na(SUM) & Week==1)  %>% 
     ggplot()  +
     geom_col(aes(Governorate, SUM))
   
 
 ewarn.tidy  %>% 
-  filter(Month == "Mar" & !is.na(SUM))  %>% 
+  filter(Month == "Mar" & !is.na(SUM) )  %>% 
     group_by(Governorate) %>%
       summarize( total = n()) 
 
 
 ewarn.tidy  %>% 
-  filter(Month == "Mar" & !is.na(SUM))  %>% 
+  filter( !is.na(SUM))  %>% 
     ggplot()  +
-      geom_bar(aes(Governorate))
+      geom_bar(aes(Governorate)) +
+    facet_wrap(~ Month)
+  
 
 
 ##
-
+ 
 ewarn.tidy  %>% 
   filter(Month == "Mar" & !is.na(SUM))  %>% 
   group_by(Governorate) %>% 
@@ -88,12 +91,31 @@ ewarn.tidy  %>%
   mutate(prop = n/sum(n))  %>% 
   ggplot()  +
   geom_col(aes(Governorate,prop),fill='steelblue') + geom_text(aes(x = Governorate, 
-                                             y = prop + 0.05, label = round(prop, 2)))
+                                             y = prop + 0.05, label = round(prop, 2))) +
+  coord_flip()
 
-ewarn.tidy  %>% 
+ewarn.tidy1  <-  
+  ewarn.tidy %>%  mutate(gender=case_when(grepl("ذكر", ABD) ~ "male",
+                                          grepl("نثى", ABD, ignore.case = TRUE) ~"female"))
+
+ewarn.tidy1  %>% 
+  filter(Month == "Mar" & !is.na(SUM))  %>% 
+  ggplot()  +
+  geom_col(aes(Governorate,ABD)) +
+  facet_wrap(~gender)
+
+
+ewarn.tidy1  %>% 
+  filter(Month == "Mar" & !is.na(SUM))  %>% 
+  ggplot()  +
+  geom_col(aes(Governorate,SUM,fill=gender), position = "dodge")
+
+ewarn.tidy1 %>% ggplot(aes(x="",y=ewarn.tidy1$SUM,fill=ewarn.tidy1$gender))+geom_bar(width = 1, stat = "identity")+ coord_polar("x", start=0)
+
+ewarn.tidy1  %>% 
   filter(Month == "Mar" & !is.na(SUM))  %>% 
     ggplot()  +
-      geom_bar(aes(Governorate, fill = factor(SUM)))
+      geom_bar(aes(Governorate, fill = gender))
 
 
 ewarn.tidy  %>% 
@@ -105,6 +127,7 @@ ewarn.tidy  %>%
   filter(Month == "Mar" & !is.na(SUM))  %>% 
   ggplot()  +
   geom_bar(aes(SUM, fill = Governorate), position = "dodge")
+
 
 
 # Create line graph to discribe the data
