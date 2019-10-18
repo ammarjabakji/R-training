@@ -29,21 +29,15 @@ highchart() %>%
 
 #### example map =======
 cities <- data_frame(
-  name = c("London", "Birmingham", "Glasgow", "Liverpool"),
-  lat = c(51.507222, 52.483056,  55.858, 53.4),
-  lon = c(-0.1275, -1.893611, -4.259, -3),
-  z = c(1, 2, 3, 2)
+  name = c("Aleppo", "Homs"),
+  lat = c(36.2021, 34.7324),
+  lon = c(37.1343, 36.7137),
+  z = c(2, 2)
 )
 
 glimpse(cities)
-## Observations: 4
-## Variables: 4
-## $ name <chr> "London", "Birmingham", "Glasgow", "Liverpool"
-## $ lat  <dbl> 51.50722, 52.48306, 55.85800, 53.40000
-## $ lon  <dbl> -0.127500, -1.893611, -4.259000, -3.000000
-## $ z    <dbl> 1, 2, 3, 2
 
-hcmap("countries/gb/gb-all", showInLegend = FALSE) %>% 
+hcmap("countries/sy/sy-all", showInLegend = FALSE) %>% 
   hc_add_series(data = cities, type = "mapbubble", name = "Cities", maxSize = '10%') %>% 
   hc_mapNavigation(enabled = TRUE) 
 

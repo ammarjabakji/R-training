@@ -4,13 +4,15 @@ library(tidyverse)
 bdims <- read.csv("http://www.jkarreth.net/files/bdims.csv")
 str(bdims)
 
+# Estimate optimal value of my_slope
+ggplot(data = bdims, aes(x = hgt, y = wgt)) + 
+  geom_point() 
+
 ggplot(data = bdims, aes(x = hgt, y = wgt)) + 
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE)
 
-# Estimate optimal value of my_slope
-ggplot(data = bdims, aes(x = hgt, y = wgt)) + 
-  geom_point() 
+
 
 # Print bdims_summary
 

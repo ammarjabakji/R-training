@@ -6,27 +6,49 @@ library(outbreaks)
 library(tidyverse)
 library(incidence)
 
+?ebola_sim
+# This simulated outbreak of Ebola Virus Disease matches some
+# key properties of the West African Ebola outbreak of 2014-2015.
+# Specifically, care was taken to use realistic delays
+# (incubation period, serial interval, time to hospitalisation, etc.)
+# and reproduction number (see references).
 
 dat <- ebola_sim$linelist$date_of_onset
 
 glimpse(ebola_sim$linelist) %>% 
   View()
-?ebola_sim
+
 
 
 outbreak <- ebola_sim$linelist
 class(outbreak)
-
+#Computing and plotting incidence
 outbreak %>%
   ggplot()+
   geom_col(aes(date_of_onset, generation ,fill=outcome))+
   xlab("Date") + ylab("Daily incidence")
 
+# weekly, starting on Monday (ISO week, default)
 incidence(outbreak$date_of_onset, interval = "1 week", groups = outbreak$gender ) %>%
   as_tibble() %>%
   View()
 
 incidence(outbreak$date_of_onset, interval = "1 week") %>%
+  as_tibble() %>%
+  ggplot()+
+  geom_col(aes(dates, counts ))+
+  xlab("Date") + ylab("Daily incidence")
+
+
+incidence(outbreak$date_of_onset, interval = "2 week") %>%
+  as_tibble() %>%
+  ggplot()+
+  geom_col(aes(dates, counts ))+
+  xlab("Date") + ylab("Daily incidence")
+
+
+
+incidence(outbreak$date_of_onset, interval = "1 month") %>%
   as_tibble() %>%
   ggplot()+
   geom_col(aes(dates, counts ))+
@@ -82,7 +104,7 @@ data %>% ggplot()+
 i.7.gender <- incidence(dat, interval = "1 week", groups = ebola_sim$linelist$gender)
 i.7.gender
 data <- as.data.frame(i.7.gender)
-
+data <- as_tibble(i.7.gender)
 
 #> <incidence object>
 #> [5888 cases from days 2014-04-07 to 2015-04-27]
